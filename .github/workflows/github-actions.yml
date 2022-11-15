@@ -1,11 +1,11 @@
 name: github-actions
-run-name: Generate server
+run-name: Generate server-stub
 on:
   push:
     branches:
       - server-stub-build
 jobs:
-  checkout:
+  generate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -23,4 +23,11 @@ jobs:
               -i ../swagger-spec.json \
               -l python-flask \
               -o ../generated-server
+         cd ..
+         rm -r swagger-codegen
+      - run: |
+         echo "$(git rev-parse --short "$GITHUB_SHA")"        
+#git branch server-stub-$(git rev-parse --short "$GITHUB_SHA") 
+         
+         
                     
