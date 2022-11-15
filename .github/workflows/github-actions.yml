@@ -1,6 +1,9 @@
 name: github-actions
 run-name: ${{ github.actor }} is learning GitHub Actions
-on: [push]
+on:
+  push:
+    branches:
+      - server-stub
 jobs:
   checkout:
     runs-on: ubuntu-latest
@@ -11,13 +14,10 @@ jobs:
           java-version: '8'
           distribution: 'adopt'
       - run: |
-         git clone https://github.com/swagger-api/swagger-codegen
+         git clone -b server-stub https://github.com/swagger-api/swagger-codegen
          cd swagger-codegen
          mvn clean package > /dev/null
          java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
               -i ../swagger-spec.json \
               -l python-flask \
-              -o ../generated-server
-         cd ..
-         ls
-              
+              -o ../generated-server             
