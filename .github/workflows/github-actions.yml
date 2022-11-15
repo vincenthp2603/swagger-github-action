@@ -1,9 +1,9 @@
 name: github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
+run-name: Generate server
 on:
   push:
     branches:
-      - server-stub
+      - server-stub-build
 jobs:
   checkout:
     runs-on: ubuntu-latest
@@ -22,4 +22,5 @@ jobs:
          java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
               -i ../swagger-spec.json \
               -l python-flask \
-              -o ../generated-server             
+              -o ../generated-server
+                    
