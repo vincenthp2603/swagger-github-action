@@ -35,12 +35,4 @@ jobs:
          git switch -c $new_branch
          git add .         
          git commit -m "$git_hash - $(date): ${{ github.event.head_commit.message }}"
-         git push --set-upstream origin $new_branch
-         
-#git commit -m "Server-stub generated"
-#git_hash=$(git rev-parse --short "$GITHUB_SHA")        
-#new_branch="server-stub-$git_hash"
-#git branch $new_branch
-#git add .
-#git commit -m "$git_hash - $(date): ${{ github.event.head_commit.message }}"
-#git push --set-upstream origin $new_branch
+         git push --set-upstream origin $new_branch      
