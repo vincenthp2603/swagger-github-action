@@ -27,14 +27,12 @@ jobs:
               -o ../generated-server
          cd ..
          rm -r swagger-codegen
-         git config --global user.name "${{ github.actor }}"
-         git add .
-         git commit -m "Server stub generated"
       - name: Push generated server stub to a new branch
         run: |
+         git config --global user.name "${{ github.actor }}"
          git_hash=$(git rev-parse --short "$GITHUB_SHA")        
          new_branch="server-stub-$git_hash"
-         git branch $new_branch         
+         git switch -c $new_branch         
          git commit -m "$git_hash - $(date): ${{ github.event.head_commit.message }}"
          git push --set-upstream origin $new_branch
          
