@@ -12,7 +12,6 @@ jobs:
           distribution: 'adopt'
       - run: |
          git clone https://github.com/swagger-api/swagger-codegen
-         cp swagger-spec.json swagger-codegen/modules/swagger-codegen-cli/src
          cd swagger-codegen
          mvn clean package > /dev/null
          java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
