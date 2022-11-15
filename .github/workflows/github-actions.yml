@@ -11,13 +11,13 @@ jobs:
           java-version: '8'
           distribution: 'adopt'
       - run: |
-         ls
          mkdir generated-server
          git clone https://github.com/swagger-api/swagger-codegen
+         cp swagger-spec.json swagger-codegen/modules/swagger-codegen-cli/src
          cd swagger-codegen
          mvn clean package > /dev/null
          java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
-              -i swagger-spec.json \
+              -i ../swagger-spec.json \
               -l python-flask \
               -o ../generated-server
          cd ..
