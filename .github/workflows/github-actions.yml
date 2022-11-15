@@ -14,7 +14,7 @@ jobs:
          ls
          git clone https://github.com/swagger-api/swagger-codegen
          cd swagger-codegen
-         mvn clean package
+         mvn clean package > /dev/null
          java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
               -i swagger-spec.json \
               -l python-flask \
