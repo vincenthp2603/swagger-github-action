@@ -11,11 +11,13 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.ref }}
+          #token: ${{ secrets.PAT }}
       - uses: actions/setup-java@v3
         with:
           java-version: '8'
           distribution: 'adopt'
-      - run: |
+      - name: Build server stub
+        run: |
          git clone https://github.com/swagger-api/swagger-codegen
          cd swagger-codegen
          mvn clean package > /dev/null
@@ -25,10 +27,12 @@ jobs:
               -o ../generated-server
          cd ..
          rm -r swagger-codegen
-      - run: |
+      - name: Push generated server stub to a new branch
+        run: |
          git_hash=$(git rev-parse --short "$GITHUB_SHA")        
          new_branch="server-stub-$git_hash"
          git branch $new_branch
+         git config --global user.name "${{ github.actor }}"
          git add .
          git commit -m "$git_hash - $(date): ${{ github.event.head_commit.message }}"
          git push --set-upstream origin $new_branch 
