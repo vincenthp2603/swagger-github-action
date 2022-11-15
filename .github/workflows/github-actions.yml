@@ -12,5 +12,13 @@ jobs:
           distribution: 'adopt'
       - run: |
          ls
-         mvn -v
-         git --version
+         git clone https://github.com/swagger-api/swagger-codegen
+         cd swagger-codegen
+         mvn clean package
+         cd ..
+         java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
+              -i swagger-spec.json \
+              -l python-flask \
+              -o generated-server
+         ls
+              
