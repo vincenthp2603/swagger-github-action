@@ -9,12 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
       - uses: actions/setup-java@v3
         with:
           java-version: '8'
           distribution: 'adopt'
       - run: |
-         git clone -b server-stub https://github.com/swagger-api/swagger-codegen
+         git clone https://github.com/swagger-api/swagger-codegen
          cd swagger-codegen
          mvn clean package > /dev/null
          java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
