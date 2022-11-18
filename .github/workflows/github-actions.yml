@@ -27,7 +27,7 @@ jobs:
         run: |
          mkdir -p generated-server
          cd swagger-codegen
-         
+         mvn clean package
          java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
               -i ../swagger-spec.yaml \
               -l python-flask \
