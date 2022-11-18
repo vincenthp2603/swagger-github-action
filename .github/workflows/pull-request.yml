@@ -12,5 +12,7 @@ jobs:
         with:
           ref: ${{ github.ref }}
       - name: Create pull request
+        env:
+         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
          gh pr create -B dev --title 'API update: $(date)' --body 'Created by Github action'         
