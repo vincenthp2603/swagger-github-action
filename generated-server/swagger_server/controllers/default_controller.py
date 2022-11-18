@@ -12,7 +12,7 @@ def alarms_controller_create():  # noqa: E501
 
     :rtype: None
     """
-    return 'do some magic!'
+    return 'do some magic or not!'
 
 
 def alarms_controller_delete(id):  # noqa: E501
@@ -27,7 +27,7 @@ def alarms_controller_delete(id):  # noqa: E501
     """
     if connexion.request.is_json:
         id = .from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
+    return 'do some magic!' or None
 
 
 def alarms_controller_find(ProductInstanceUri=None):  # noqa: E501
