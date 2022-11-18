@@ -26,13 +26,16 @@ jobs:
       - name: Build server stub
         run: |
          mkdir -p generated-server
-         java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
-              -i swagger-spec.yaml \
+         cd swagger-codegen
+         
+         java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
+              -i ../swagger-spec.yaml \
               -l python-flask \
-              -o generated-server
+              -o ../generated-server
+         cd ..
          rm -r swagger-codegen
       - name: Generate Postman collection
-        run: openapi2postmanv2 -s swagger-spec.yaml -o collection.json
+        run: openapi2postmanv2 -s swagger-spec.yaml -o postman-collection.json
       - name: Push generated codes to a new branch
         run: |
          git config --global user.name "${{ github.actor }}"
