@@ -1,9 +1,9 @@
 name: template-pull-request
 run-name: Create pull request for the generated codes
 on:
-  create:
+  push:
     branches:
-      - 'template-*'
+      - 'template-**'
 jobs:
   generate:
     runs-on: ubuntu-latest
