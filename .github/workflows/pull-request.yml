@@ -5,14 +5,16 @@ on:
     branches:
       - 'template-*'
 jobs:
-  generate:
+  create-pull-request:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: base
       - uses: peter-evans/create-pull-request@v4
         with:
           base: dev
-          branch: ${{ github.ref_name }}
+          branch: dev
           assignees: ${{ github.actor }}
           reviewers: ${{ github.actor }}
           commit-message: "Pull request: ${{ github.event.head_commit.message }}"
