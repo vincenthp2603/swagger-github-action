@@ -16,18 +16,24 @@ jobs:
         with:
           java-version: '8'
           distribution: 'adopt'
-      - name: Build server stub
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Setup build tools
         run: |
          git clone https://github.com/swagger-api/swagger-codegen
-         cd swagger-codegen
-         mvn clean package > /dev/null
-         java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
-              -i ../swagger-spec.json \
+         npm i -g openapi-to-postmanv2
+      - name: Build server stub
+        run: |
+         mkdir -p generated-server
+         java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
+              -i swagger-spec.yaml \
               -l python-flask \
-              -o ../generated-server
-         cd ..
+              -o generated-server
          rm -r swagger-codegen
-      - name: Push generated server stub to a new branch
+      - name: Generate Postman collection
+        run: openapi2postmanv2 -s swagger-spec.yaml -o collection.json
+      - name: Push generated codes to a new branch
         run: |
          git config --global user.name "${{ github.actor }}"
          git_hash=$(git rev-parse --short "$GITHUB_SHA")        
