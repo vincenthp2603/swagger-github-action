@@ -1,5 +1,5 @@
 ---
-swagger: 3.0.0
+openapi: 3.0.0
 info:
   title: IIoT Portal API Gateway
   description: ""
