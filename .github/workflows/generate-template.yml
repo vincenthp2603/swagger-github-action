@@ -48,9 +48,3 @@ jobs:
          git add .         
          git commit -m "$git_hash - $(date): ${{ github.event.head_commit.message }}"
          git push --set-upstream origin $new_branch
-      - name: Trigger PR Workflow
-        run: |
-         echo "API updated: $git_hash" > log.txt
-         git add .         
-         git commit -m "${{ github.event.head_commit.message }}"
-         git push --set-upstream origin $new_branch
