@@ -43,10 +43,8 @@ jobs:
         run: |
          git config --global user.name "${{ github.actor }}"
          git_hash=$(git rev-parse --short "$GITHUB_SHA")        
-         new_branch="template-gen"
+         new_branch="template-$git_hash"
          git switch -c $new_branch
          git add .         
          git commit -m "$git_hash - $(date): ${{ github.event.head_commit.message }}"
          git push --set-upstream origin $new_branch
-
-#new_branch="template-$git_hash"      

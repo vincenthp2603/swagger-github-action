@@ -3,7 +3,7 @@ run-name: Create pull request for the generated codes
 on:
   push:
     branches:
-      - 'template-gen'
+      - 'template-*'
 jobs:
   generate:
     runs-on: ubuntu-latest
