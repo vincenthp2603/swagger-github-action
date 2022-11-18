@@ -1,9 +1,9 @@
 name: github-actions
-run-name: Generate server-stub
+run-name: Generate development template
 on:
   push:
     branches:
-      - server-stub-build
+      - template
 jobs:
   generate:
     runs-on: ubuntu-latest
@@ -35,12 +35,12 @@ jobs:
          cd ..
          rm -r swagger-codegen
       - name: Generate Postman collection
-        run: openapi2postmanv2 -s swagger-spec.yaml -o postman-collection.json
+        run: openapi2postmanv2 -s swagger-spec.yaml -v 3 -o postman-collection.json
       - name: Push generated codes to a new branch
         run: |
          git config --global user.name "${{ github.actor }}"
          git_hash=$(git rev-parse --short "$GITHUB_SHA")        
-         new_branch="server-stub-$git_hash"
+         new_branch="template-$git_hash-$(date)"
          git switch -c $new_branch
          git add .         
          git commit -m "$git_hash - $(date): ${{ github.event.head_commit.message }}"
