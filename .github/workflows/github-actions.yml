@@ -18,7 +18,7 @@ jobs:
           distribution: 'adopt'
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 14
       - name: Setup build tools
         run: |
          git clone https://github.com/swagger-api/swagger-codegen
@@ -39,6 +39,7 @@ jobs:
          cp api-spec.yaml swagger-spec.yaml
          sed 's/openapi: 3.0.0/swagger: 3.0.0/g'
          openapi2postmanv2 -s swagger-spec.yaml -o postman-collection.json
+         rm swagger-spec.yaml
       - name: Push generated codes to a new branch
         run: |
          git config --global user.name "${{ github.actor }}"
