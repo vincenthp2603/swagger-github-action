@@ -12,6 +12,7 @@ def alarms_controller_create():  # noqa: E501
 
     :rtype: None
     """
+    print('No magic here')
     return 'do some magic or not!'
 
 
