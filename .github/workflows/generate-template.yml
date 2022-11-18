@@ -1,4 +1,4 @@
-name: github-actions
+name: generate-template
 run-name: Generate development template
 on:
   push:

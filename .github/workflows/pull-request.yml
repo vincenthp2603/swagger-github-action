@@ -1,4 +1,4 @@
-name: github-actions
+name: template-pull-request
 run-name: Create pull request for the generated codes
 on:
   push:
