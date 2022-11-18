@@ -25,8 +25,7 @@ jobs:
          npm i -g openapi-to-postmanv2
       - name: Build server stub
         run: |
-         cp api-spec.yaml swagger-spec.yaml
-         sed 's/openapi: 3.0.0/swagger: 3.0.0/g' swagger-spec.yaml
+         sed 's/openapi: 3.0.0/swagger: 3.0.0/g' api-spec.yaml > swagger-spec.yaml
          mkdir -p generated-server
          cd swagger-codegen
          mvn clean package
