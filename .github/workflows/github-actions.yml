@@ -26,12 +26,12 @@ jobs:
       - name: Build server stub
         run: |
          cp api-spec.yaml swagger-spec.yaml
-         sed 's/openapi: 3.0.0/swagger: 3.0.0/g'
+         sed 's/openapi: 3.0.0/swagger: 3.0.0/g' swagger-spec.yaml
          mkdir -p generated-server
          cd swagger-codegen
          mvn clean package
          java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
-              -i ../api-spec.yaml \
+              -i ../swagger-spec.yaml \
               -l python-flask \
               -o ../generated-server
          cd ..
