@@ -13,4 +13,6 @@ jobs:
         with:
           base: dev
           branch: ${{ github.ref_name }}
-          commit-message: ${{ github.event.head_commit.message }}
+          assignees: ${{ github.actor }}
+          reviewers: ${{ github.actor }}
+          commit-message: "Pull request: ${{ github.event.head_commit.message }}"
