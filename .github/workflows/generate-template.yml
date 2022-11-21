@@ -44,7 +44,13 @@ jobs:
          git config --global user.name "${{ github.actor }}"
          git_hash=$(git rev-parse --short "$GITHUB_SHA")        
          new_branch="template-$git_hash"
+         commit_msg = "${{ github.event.head_commit.message }}"
+         commit_time = $(date)
          git switch -c $new_branch
          git add .         
-         git commit -m "$git_hash - $(date): ${{ github.event.head_commit.message }}"
+         git commit -m "$git_hash - $commit_time: $commit_msg"
          git push --set-upstream origin $new_branch
+         echo "API update: $git_hash - $commit_time: $commit_msg" > README.MD
+         git add README.MD
+         git commit -m "$git_hash - $commit_time: $commit_msg"
+         git push
