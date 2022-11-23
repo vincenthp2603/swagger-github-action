@@ -22,11 +22,12 @@ jobs:
       - name: Setup build tools
         run: |
          git clone https://github.com/swagger-api/swagger-codegen
+         npm i api-spec-converter
          npm i -g openapi-to-postmanv2
       - name: Build server stub
         run: |
-         sed 's/openapi: 3.0.0/swagger: 3.0.0/g' api-spec.yaml > swagger-spec.yaml
-         mkdir -p generated-server
+         api-spec-converter -f openapi_3 -t swagger_2 -s yaml api-spec.json > swagger-spec.yaml
+         mkdir -p server
          cd swagger-codegen
          mvn clean package
          java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
