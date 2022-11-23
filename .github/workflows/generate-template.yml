@@ -33,7 +33,7 @@ jobs:
          java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
               -i ../swagger-spec.yaml \
               -l python-flask \
-              -o ../generated-server
+              -o ../server
          cd ..
          rm -r swagger-codegen
          rm swagger-spec.yaml
