@@ -22,7 +22,7 @@ jobs:
       - name: Setup build tools
         run: |
          git clone https://github.com/swagger-api/swagger-codegen
-         npm i api-spec-converter
+         npm i -g api-spec-converter
          npm i -g openapi-to-postmanv2
       - name: Build server stub
         run: |
