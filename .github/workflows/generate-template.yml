@@ -39,7 +39,7 @@ jobs:
          rm swagger-spec.yaml
       - name: Generate Postman collection
         run: |
-         openapi2postmanv2 -s api-spec.yaml -o postman-collection.json
+         openapi2postmanv2 -s api-spec.json -o postman-collection.json
       - name: Push generated codes to a new branch
         run: |
          git config --global user.name "${{ github.actor }}"
