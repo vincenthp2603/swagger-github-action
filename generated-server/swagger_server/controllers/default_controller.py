@@ -88,12 +88,8 @@ def assets_controller_create(body):  # noqa: E501
     :rtype: None
     """
     if connexion.request.is_json:
-        #body = PostAssetDto.from_dict(connexion.request.get_json())  # noqa: E501
-        post_asset_dto = connexion.request.get_json()
-        asset = Asset(**post_asset_dto)
-        print(asset.to_json())
-        asset.save()
-    return str(asset.id)
+        body = PostAssetDto.from_dict(connexion.request.get_json())  # noqa: E501
+    return 'do some magic!'
 
 
 def assets_controller_delete(ProductInstanceUri):  # noqa: E501

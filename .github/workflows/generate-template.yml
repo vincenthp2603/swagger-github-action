@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.ref }}
-          #token: ${{ secrets.PAT }}
+          token: ${{ secrets.PAT }}
       - uses: actions/setup-java@v3
         with:
           java-version: '8'
@@ -22,11 +22,12 @@ jobs:
       - name: Setup build tools
         run: |
          git clone https://github.com/swagger-api/swagger-codegen
+         npm i -g api-spec-converter
          npm i -g openapi-to-postmanv2
       - name: Build server stub
         run: |
-         sed 's/openapi: 3.0.0/swagger: 3.0.0/g' api-spec.yaml > swagger-spec.yaml
-         mkdir -p generated-server
+         api-spec-converter -f openapi_3 -t swagger_2 -s yaml api-spec.json > swagger-spec.yaml
+         mkdir -p server
          cd swagger-codegen
          mvn clean package
          java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
@@ -38,13 +39,15 @@ jobs:
          rm swagger-spec.yaml
       - name: Generate Postman collection
         run: |
-         openapi2postmanv2 -s api-spec.yaml -o postman-collection.json
+         openapi2postmanv2 -s api-spec.json -o postman-collection.json
       - name: Push generated codes to a new branch
         run: |
          git config --global user.name "${{ github.actor }}"
          git_hash=$(git rev-parse --short "$GITHUB_SHA")        
          new_branch="template-$git_hash"
+         commit_msg="${{ github.event.head_commit.message }}"
+         commit_time="$(date)"
          git switch -c $new_branch
          git add .         
-         git commit -m "$git_hash - $(date): ${{ github.event.head_commit.message }}"
+         git commit -m "$git_hash - $commit_time: $commit_msg"
          git push --set-upstream origin $new_branch
