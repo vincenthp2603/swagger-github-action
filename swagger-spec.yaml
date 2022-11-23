@@ -1,282 +1,263 @@
----
-swagger: 3.0.0
+swagger: '2.0'
 info:
-  title: IIoT Portal API Gateway
-  description: ""
   contact: {}
-  version: "1.0"
-servers:
-- url: https://virtserver.swaggerhub.com/vincenthp2603/aal-wise21-b4x-dialog/1.0
-  description: SwaggerHub API Auto Mocking
+  description: ''
+  title: IIoT Portal API Gateway
+  version: '1.0'
 paths:
   /api:
     get:
+      parameters: []
+      responses:
+        '200':
+          description: ''
       operationId: AppController_getHello
-      parameters: []
-      responses:
-        "200":
-          description: ""
-  /api/assets:
-    get:
-      operationId: AssetsController_find
-      parameters:
-      - name: ProductInstanceUri
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-        example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
-      - name: PublisherInstanceUri
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-        example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
-      responses:
-        "200":
-          description: ""
-    post:
-      operationId: AssetsController_create
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PostAssetDto'
-        required: true
-      responses:
-        "201":
-          description: ""
-    delete:
-      operationId: AssetsController_delete
-      parameters:
-      - name: ProductInstanceUri
-        in: query
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: ""
-  /api/events:
-    get:
-      operationId: EventsController_find
-      parameters:
-      - name: ProductInstanceUri
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-        example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
-      responses:
-        "200":
-          description: ""
-    post:
-      operationId: EventsController_create
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PostEventDto'
-        required: true
-      responses:
-        "201":
-          description: ""
   /api/alarms:
     get:
+      parameters:
+        - in: query
+          name: ProductInstanceUri
+          required: false
+          type: string
+          x-example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
+      responses:
+        '200':
+          description: ''
       operationId: AlarmsController_find
-      parameters:
-      - name: ProductInstanceUri
-        in: query
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-        example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
-      responses:
-        "200":
-          description: ""
     post:
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/PostAlarmDto'
+      responses:
+        '201':
+          description: ''
       operationId: AlarmsController_create
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PostAlarmDto'
-        required: true
-      responses:
-        "201":
-          description: ""
-  /api/alarms/{id}:
-    put:
-      operationId: AlarmsController_update
-      parameters:
-      - name: id
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PutAlarmDto'
-        required: true
-      responses:
-        "200":
-          description: ""
+  '/api/alarms/{id}':
     delete:
-      operationId: AlarmsController_delete
       parameters:
-      - name: id
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
+        - in: path
+          name: id
+          required: true
           type: string
       responses:
-        "200":
-          description: ""
-components:
-  schemas:
-    Geolocation:
-      required:
-      - latitude
+        '200':
+          description: ''
+      operationId: AlarmsController_delete
+    put:
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/PutAlarmDto'
+      responses:
+        '200':
+          description: ''
+      operationId: AlarmsController_update
+  /api/assets:
+    delete:
+      parameters:
+        - in: query
+          name: ProductInstanceUri
+          required: true
+          type: string
+      responses:
+        '200':
+          description: ''
+      operationId: AssetsController_delete
+    get:
+      parameters:
+        - in: query
+          name: ProductInstanceUri
+          required: false
+          type: string
+          x-example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
+        - in: query
+          name: PublisherInstanceUri
+          required: false
+          type: string
+          x-example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
+      responses:
+        '200':
+          description: ''
+      operationId: AssetsController_find
+    post:
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/PostAssetDto'
+      responses:
+        '201':
+          description: ''
+      operationId: AssetsController_create
+  /api/events:
+    get:
+      parameters:
+        - in: query
+          name: ProductInstanceUri
+          required: false
+          type: string
+          x-example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
+      responses:
+        '200':
+          description: ''
+      operationId: EventsController_find
+    post:
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/PostEventDto'
+      responses:
+        '201':
+          description: ''
+      operationId: EventsController_create
+definitions:
+  Geolocation:
+    properties:
+      latitude:
+        example: '12'
+        type: string
+      longitude:
+        example: '12'
+        type: string
+    required:
       - longitude
-      type: object
-      properties:
-        longitude:
-          type: string
-          example: "12"
-        latitude:
-          type: string
-          example: "12"
-    PostAssetDto:
-      required:
-      - DeviceClass
-      - DeviceManual
-      - DeviceRevision
-      - HardwareRevision
+      - latitude
+    type: object
+  PostAlarmDto:
+    properties:
+      ProductInstanceUri:
+        example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
+        type: string
+      description:
+        example: Lost connection to a connected device
+        type: string
+      severity:
+        example: warning
+        type: string
+      status:
+        example: active
+        type: string
+    required:
+      - severity
+      - description
+      - status
+      - ProductInstanceUri
+    type: object
+  PostAssetDto:
+    properties:
+      DeviceClass:
+        example: Gateway
+        type: string
+      DeviceManual:
+        example: some-url.com
+        type: string
+      DeviceRevision:
+        example: V1.3.8.0
+        type: string
+      HardwareRevision:
+        example: '1'
+        type: string
+      Manufacturer:
+        example: Murrelektronik Gmbh
+        type: string
+      ManufacturerUri:
+        example: murrelektronik.com
+        type: string
+      Model:
+        example: VarioX
+        type: string
+      ProductCode:
+        example: X-Quad 1.5
+        type: string
+      ProductInstanceUri:
+        example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
+        type: string
+      PublisherInstanceUri:
+        example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
+        type: string
+      RevisionCounter:
+        example: 1
+        type: number
+      SerialNumber:
+        example: 09800202xxxxx
+        type: string
+      SoftwareRevision:
+        example: '2'
+        type: string
+      geolocation:
+        allOf:
+          - $ref: '#/definitions/Geolocation'
+        example:
+          latitude: '12'
+          longitude: '12'
+      remoteManagementUrl:
+        example: 'http://11.12.13.6'
+        type: string
+      status:
+        example: online
+        type: string
+    required:
       - Manufacturer
       - ManufacturerUri
       - Model
       - ProductCode
-      - ProductInstanceUri
-      - PublisherInstanceUri
-      - RevisionCounter
-      - SerialNumber
+      - HardwareRevision
       - SoftwareRevision
-      type: object
-      properties:
-        Manufacturer:
-          type: string
-          example: Murrelektronik Gmbh
-        ManufacturerUri:
-          type: string
-          example: murrelektronik.com
-        Model:
-          type: string
-          example: VarioX
-        ProductCode:
-          type: string
-          example: X-Quad 1.5
-        HardwareRevision:
-          type: string
-          example: "1"
-        SoftwareRevision:
-          type: string
-          example: "2"
-        DeviceRevision:
-          type: string
-          example: V1.3.8.0
-        DeviceManual:
-          type: string
-          example: some-url.com
-        DeviceClass:
-          type: string
-          example: Gateway
-        SerialNumber:
-          type: string
-          example: 09800202xxxxx
-        ProductInstanceUri:
-          type: string
-          example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
-        RevisionCounter:
-          type: number
-          example: 1
-        PublisherInstanceUri:
-          type: string
-          example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
-        status:
-          type: string
-          example: online
-        remoteManagementUrl:
-          type: string
-          example: http://11.12.13.6
-        geolocation:
-          example:
-            longitude: "12"
-            latitude: "12"
-          allOf:
-          - $ref: '#/components/schemas/Geolocation'
-    PostEventDto:
-      required:
+      - DeviceRevision
+      - DeviceManual
+      - DeviceClass
+      - SerialNumber
+      - ProductInstanceUri
+      - RevisionCounter
+      - PublisherInstanceUri
+    type: object
+  PostEventDto:
+    properties:
+      ProductInstanceUri:
+        example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
+        type: string
+      name:
+        example: Running
+        type: string
+    required:
       - ProductInstanceUri
       - name
-      type: object
-      properties:
-        ProductInstanceUri:
-          type: string
-          example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
-        name:
-          type: string
-          example: Running
-    PostAlarmDto:
-      required:
-      - ProductInstanceUri
-      - description
-      - severity
-      - status
-      type: object
-      properties:
-        severity:
-          type: string
-          example: warning
-        description:
-          type: string
-          example: Lost connection to a connected device
-        status:
-          type: string
-          example: active
-        ProductInstanceUri:
-          type: string
-          example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
-    PutAlarmDto:
-      type: object
-      properties:
-        severity:
-          type: string
-          example: warning
-        description:
-          type: string
-          example: Lost connection to a connected device
-        status:
-          type: string
-          example: active
-        ProductInstanceUri:
-          type: string
-          example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
+    type: object
+  PutAlarmDto:
+    properties:
+      ProductInstanceUri:
+        example: murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx
+        type: string
+      description:
+        example: Lost connection to a connected device
+        type: string
+      severity:
+        example: warning
+        type: string
+      status:
+        example: active
+        type: string
+    type: object
+tags: []
+x-components: {}
+
