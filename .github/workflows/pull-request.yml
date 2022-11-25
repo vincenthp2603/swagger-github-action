@@ -19,7 +19,7 @@ jobs:
          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
          pr_noti=$(gh pr list -B dev -H ${{ github.ref }} -s open)
-         echo "$pr_noti"
+         echo "PR Noti: $pr_noti"
          if [[ $pr_noti == "no pull requests match your search in ${{ github.repository }}" ]]; then \
             gh pr create -B dev --title "API updated: ${{ github.event.head_commit.message }}" --body "Created by Github action"; \
          else \
