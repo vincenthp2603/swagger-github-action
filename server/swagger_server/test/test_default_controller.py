@@ -10,6 +10,7 @@ from swagger_server.models.post_asset_dto import PostAssetDto  # noqa: E501
 from swagger_server.models.post_event_dto import PostEventDto  # noqa: E501
 from swagger_server.models.put_alarm_dto import PutAlarmDto  # noqa: E501
 
+
 from swagger_server.test import BaseTestCase
 
 
@@ -28,7 +29,8 @@ class TestDefaultController(BaseTestCase):
             data=json.dumps(body),
             content_type='application/json')
 
-self.assert200(response,
+        self.assert200(response,
+
                        'Response body is : ' + response.data.decode('utf-8'))
 
     def test_alarms_controller_delete(self):
