@@ -9,6 +9,7 @@ from swagger_server.models.post_alarm_dto import PostAlarmDto  # noqa: E501
 from swagger_server.models.post_asset_dto import PostAssetDto  # noqa: E501
 from swagger_server.models.post_event_dto import PostEventDto  # noqa: E501
 from swagger_server.models.put_alarm_dto import PutAlarmDto  # noqa: E501
+
 from swagger_server.test import BaseTestCase
 
 
@@ -26,7 +27,8 @@ class TestDefaultController(BaseTestCase):
             method='POST',
             data=json.dumps(body),
             content_type='application/json')
-        self.assert200(response,
+
+self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
     def test_alarms_controller_delete(self):
@@ -139,6 +141,7 @@ class TestDefaultController(BaseTestCase):
         
         """
         query_string = [('ProductInstanceUri', 'murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx')]
+
         response = self.client.open(
             '/api/events',
             method='GET',
