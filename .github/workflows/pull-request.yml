@@ -18,5 +18,9 @@ jobs:
         env:
          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-         gh pr list -B dev -H ${{ github.ref }} -s open &&
-         gh pr create -B dev --title "API updated: ${{ github.event.head_commit.message }}" --body "Created by Github action"         
+         pr_noti=$(gh pr list -B dev -H ${{ github.ref }} -s open)
+         if [[ $pr_noti == "no pull requests match your search in ${{ github.repository }}" ]]; then \
+            gh pr create -B dev --title "API updated: ${{ github.event.head_commit.message }}" --body "Created by Github action" \
+         else \
+            echo "Pull request is already created." \
+         fi       
