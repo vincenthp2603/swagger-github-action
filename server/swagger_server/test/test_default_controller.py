@@ -5,6 +5,11 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
+from swagger_server.models.post_alarm_dto import PostAlarmDto  # noqa: E501
+from swagger_server.models.post_asset_dto import PostAssetDto  # noqa: E501
+from swagger_server.models.post_event_dto import PostEventDto  # noqa: E501
+from swagger_server.models.put_alarm_dto import PutAlarmDto  # noqa: E501
+
 from swagger_server.test import BaseTestCase
 
 
@@ -16,10 +21,14 @@ class TestDefaultController(BaseTestCase):
 
         
         """
+        body = PostAlarmDto()
         response = self.client.open(
             '/api/alarms',
-            method='POST')
-        self.assert200(response,
+            method='POST',
+            data=json.dumps(body),
+            content_type='application/json')
+
+self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
     def test_alarms_controller_delete(self):
@@ -28,7 +37,7 @@ class TestDefaultController(BaseTestCase):
         
         """
         response = self.client.open(
-            '/api/alarms/{id}'.format(id=None),
+            '/api/alarms/{id}'.format(id='id_example'),
             method='DELETE')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
@@ -38,7 +47,7 @@ class TestDefaultController(BaseTestCase):
 
         
         """
-        query_string = [('ProductInstanceUri', None)]
+        query_string = [('ProductInstanceUri', 'murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx')]
         response = self.client.open(
             '/api/alarms',
             method='GET',
@@ -51,9 +60,12 @@ class TestDefaultController(BaseTestCase):
 
         
         """
+        body = PutAlarmDto()
         response = self.client.open(
-            '/api/alarms/{id}'.format(id=None),
-            method='PUT')
+            '/api/alarms/{id}'.format(id='id_example'),
+            method='PUT',
+            data=json.dumps(body),
+            content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
@@ -73,9 +85,12 @@ class TestDefaultController(BaseTestCase):
 
         
         """
+        body = PostAssetDto()
         response = self.client.open(
             '/api/assets',
-            method='POST')
+            method='POST',
+            data=json.dumps(body),
+            content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
@@ -84,7 +99,7 @@ class TestDefaultController(BaseTestCase):
 
         
         """
-        query_string = [('ProductInstanceUri', None)]
+        query_string = [('ProductInstanceUri', 'ProductInstanceUri_example')]
         response = self.client.open(
             '/api/assets',
             method='DELETE',
@@ -97,8 +112,8 @@ class TestDefaultController(BaseTestCase):
 
         
         """
-        query_string = [('ProductInstanceUri', None),
-                        ('PublisherInstanceUri', None)]
+        query_string = [('ProductInstanceUri', 'murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx'),
+                        ('PublisherInstanceUri', 'murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx')]
         response = self.client.open(
             '/api/assets',
             method='GET',
@@ -111,9 +126,12 @@ class TestDefaultController(BaseTestCase):
 
         
         """
+        body = PostEventDto()
         response = self.client.open(
             '/api/events',
-            method='POST')
+            method='POST',
+            data=json.dumps(body),
+            content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
@@ -122,7 +140,8 @@ class TestDefaultController(BaseTestCase):
 
         
         """
-        query_string = [('ProductInstanceUri', None)]
+        query_string = [('ProductInstanceUri', 'murrelektronik.com/VarioX/X-Quad%201.5/09800202xxxxx')]
+
         response = self.client.open(
             '/api/events',
             method='GET',

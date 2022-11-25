@@ -96,7 +96,6 @@ def assets_controller_create(body):  # noqa: E501
         asset.save()
     return str(asset.id)
 
-
 def assets_controller_delete(ProductInstanceUri):  # noqa: E501
     """assets_controller_delete
 
