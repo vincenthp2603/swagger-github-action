@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - template
+    paths:
+      - "api-spec.json"
 jobs:
   generate:
     runs-on: ubuntu-latest

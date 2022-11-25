@@ -15,4 +15,5 @@ jobs:
         env:
          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+         gh pr list -B dev -H ${{ github.ref }}
          gh pr create -B dev --title "API updated: ${{ github.event.head_commit.message }}" --body "Created by Github action"         
