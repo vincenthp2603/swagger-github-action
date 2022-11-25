@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - 'template-*'
+  
+  workflow_dispatch:
+
 jobs:
   create-pull-request:
     runs-on: ubuntu-latest
