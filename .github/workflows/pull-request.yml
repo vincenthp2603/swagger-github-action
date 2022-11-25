@@ -1,0 +1,22 @@
+name: template-pull-request
+run-name: Create pull request for the generated codes
+on:
+  push:
+    branches:
+      - 'template-*'
+  
+  workflow_dispatch:
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+      - name: Create pull request
+        env:
+         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+         gh pr list -B dev -H ${{ github.ref }}
+         gh pr create -B dev --title "API updated: ${{ github.event.head_commit.message }}" --body "Created by Github action"         
