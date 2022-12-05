@@ -75,7 +75,7 @@ def app_controller_get_hello():  # noqa: E501
 
     :rtype: None
     """
-    return 'do some magic!'
+    return 'Hello'
 
 
 def assets_controller_create(body):  # noqa: E501
@@ -92,7 +92,6 @@ def assets_controller_create(body):  # noqa: E501
         #body = PostAssetDto.from_dict(connexion.request.get_json())  # noqa: E501
         post_asset_dto = connexion.request.get_json()
         asset = Asset(**post_asset_dto)
-        print(asset.to_json())
         asset.save()
     return str(asset.id)
 
@@ -106,8 +105,9 @@ def assets_controller_delete(ProductInstanceUri):  # noqa: E501
 
     :rtype: None
     """
-    return 'do some magic!'
-
+    asset = Asset.objects(ProductInstanceUri=ProductInstanceUri).first()
+    asset.delete()
+    return str(asset.id)
 
 def assets_controller_find(ProductInstanceUri=None, PublisherInstanceUri=None):  # noqa: E501
     """assets_controller_find
@@ -121,7 +121,13 @@ def assets_controller_find(ProductInstanceUri=None, PublisherInstanceUri=None): 
 
     :rtype: None
     """
-    return 'do some magic!'
+    if ProductInstanceUri is not None:
+        assets = Asset.objects(ProductInstanceUri=ProductInstanceUri)
+    elif PublisherInstanceUri is not None:
+        assets = Asset.objects(PublisherInstanceUri=PublisherInstanceUri)
+    else:
+        assets = []
+    return assets.to_json()
 
 
 def events_controller_create(body):  # noqa: E501
